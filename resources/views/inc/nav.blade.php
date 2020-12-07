@@ -14,13 +14,23 @@
     </form>
     <!-- Navbar-->
     <ul class="navbar-nav ml-auto ml-md-0">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="/login">Logout</a>
-            </div>
-        </li>
+        <div class="dropdown  dropleft">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user fa-fw"></i> 
+                @if (auth()->check()){{ auth()->user()->name }}
+                @endif
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    @if( auth()->check())
+                        <a class="dropdown-item">Hi {{ auth()->user()->name }}</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item"href="/logout">Log Out</a>
+                    @else
+                        <a class="dropdown-item" href="/login">Log In</a>
+                        <a class="dropdown-item" href="/register">Register</a>
+                    @endif
+                </div>
+          </div>
+        
     </ul>
-   
 </nav>

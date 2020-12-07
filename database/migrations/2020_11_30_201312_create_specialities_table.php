@@ -19,7 +19,8 @@ class CreateSpecialitiesTable extends Migration
             $table->string('code');
             $table->integer('deans_office_id')->unsigned();
             $table->timestamps();
-            $table->foreign('deans_office_id')->references('id')->on('dean_offices')->onDelete('cascade');
+         
+            $table->foreign('deans_office_id')->references('id')->on('deans_offices')->onDelete('cascade');
         });
     }
 

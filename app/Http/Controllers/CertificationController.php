@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class CertificationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+  
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +21,14 @@ class CertificationController extends Controller
     public function index()
     {
         //
-        $cerf=Certifications::all();
-
-        $cerf_Type=CerfTypes::all();
-
-        return view('certification.index',['cerf'=>$cerf,'cerftype'=>$cerf_Type]);
+        if (auth()->user()->is_admin == true) {
+            $cerf=Certifications::all();
+            $cerf_Type=CerfTypes::all();
+            return view('certification.index',['cerf'=>$cerf,'cerftype'=>$cerf_Type]);
+        }
+        
+        return view('pages.403');
+        
     }
 
     /**
@@ -31,8 +39,12 @@ class CertificationController extends Controller
     public function create()
     {
         //
-        $cerf_Type=CerfTypes::all();
-        return view('certification.create',['cerfType'=>$cerf_Type]);
+        if (auth()->user()->is_admin == true) {
+            $cerf_Type=CerfTypes::all();
+            return view('certification.create',['cerfType'=>$cerf_Type]);
+        }
+        return view('pages.403');
+      
     }
 
     /**
@@ -44,19 +56,21 @@ class CertificationController extends Controller
     public function store(Request $request)
     {
         //
-        $cerf=new Certifications();
-        $cerf->uni_logo=request('uni_logo');
-        $cerf->uni_organization=request('uni_organization');
-        $cerf->title=request('title');
-        $cerf->paragraph=request('paragraph');
-        $cerf->type_cerf_id=request('cerfType_id');
-        $cerf->main_part=request('main_part');
-        $cerf->license=request('license');
-        
-    
-        $cerf->save();
-        error_log($cerf);
-        return redirect('/cerf')->with('success', 'Object created successfully.');;   
+        if (auth()->user()->is_admin == true) {
+            $cerf=new Certifications();
+            $cerf->uni_logo=request('uni_logo');
+            $cerf->uni_organization=request('uni_organization');
+            $cerf->title=request('title');
+            $cerf->paragraph=request('paragraph');
+            $cerf->type_cerf_id=request('cerfType_id');
+            $cerf->main_part=request('main_part');
+            $cerf->license=request('license');
+            $cerf->save();
+            error_log($cerf);
+            return redirect('/cerf')->with('success', 'Object created successfully.');;   
+        }
+        return view('pages.403');
+
     }
 
     /**
@@ -68,9 +82,12 @@ class CertificationController extends Controller
     public function show($id)
     {
         //
-        $cerf_Type=Certifications::findOrFail($id);
+        if (auth()->user()->is_admin == true) {
+            $cerf_Type=Certifications::findOrFail($id);
+            return view('cerf.show', ['cerfType'=>$cerf_Type]);
+        }
+        return view('pages.403');
 
-        return view('cerf.show', ['cerfType'=>$cerf_Type]);
     }
 
     /**
@@ -82,10 +99,13 @@ class CertificationController extends Controller
     public function edit($id)
     {
         //
-        $cerf=Certifications::findOrFail($id);
-        $cerf_Type=CerfTypes::all();
-
-        return view('certification.edit', ['cerfType'=>$cerf_Type,'cerf'=>$cerf]);
+        if(auth()->user()->is_admin == true){
+            $cerf=Certifications::findOrFail($id);
+            $cerf_Type=CerfTypes::all();
+            return view('certification.edit', ['cerfType'=>$cerf_Type,'cerf'=>$cerf]);
+        }
+        return view('pages.403');
+        
     }
 
     /**
@@ -98,18 +118,25 @@ class CertificationController extends Controller
     public function update(Request $request)
     {
         //
-        $id=$request->id;
-        $cerf = Certifications::find($id);
-        $cerf->uni_logo=request('uni_logo');
-        $cerf->uni_organization=request('uni_organization');
-        $cerf->title=request('title');
-        $cerf->paragraph=request('paragraph');
-        $cerf->type_cerf_id=request('cerfType');
-        $cerf->main_part=request('main_part');
-        $cerf->license=request('license');
-        $cerf->save();
-        error_log($cerf);
-        return redirect('/cerf')->with('success', 'Object created successfully.');;   
+        if(auth()->user()->is_admin == true){
+            $id=$request->id;
+            $cerf = Certifications::find($id);
+            $cerf->uni_logo=request('uni_logo');
+            $cerf->uni_organization=request('uni_organization');
+            $cerf->title=request('title');
+            $cerf->paragraph=request('paragraph');
+            $cerf->type_cerf_id=request('cerfType');
+            $cerf->main_part=request('main_part');
+            $cerf->license=request('license');
+            $cerf->save();
+            error_log($cerf);
+            return redirect('/cerf')->with('success', 'Object created successfully.');
+        }
+        else{
+            return view('pages.403');
+        }
+       
+
     }
 
     /**
@@ -121,10 +148,15 @@ class CertificationController extends Controller
     public function destroy($id)
     {
         //
-        $cerf = Certifications::findOrFail($id);
-        $cerf->delete();
+        if(auth()->user()->is_admin == true){
+                $cerf = Certifications::findOrFail($id);
+                $cerf->delete();
 
-        return redirect('/cerf')
-            ->with('success', 'Object deleted successfully');
+                return redirect('/cerf')
+                    ->with('success', 'Object deleted successfully');
+        }
+        else{
+                return view('pages.403');
+        }
     }
 }

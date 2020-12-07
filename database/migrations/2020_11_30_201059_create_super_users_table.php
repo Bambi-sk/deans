@@ -20,7 +20,9 @@ class CreateSuperUsersTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->integer('deans_office_id')->unsigned();
+            $table->unsignedBigInteger('id_users');
             $table->timestamps();
+            $table->foreign('id_users')->references('id')->on('users');
             $table->foreign('deans_office_id')->references('id')->on('deans_offices')->onDelete('cascade');
         });
     }

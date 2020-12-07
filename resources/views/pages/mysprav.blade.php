@@ -1,37 +1,9 @@
-@extends('layouts.appAdmin')
+@extends('layouts.app')
 @section('breadcrumbText')
 Мои справки
 @endsection
 @section('card')
-<div class="row">
-    <div class="col-xl-4 col-md-6">
-        <div class="card bg-primary text-white mb-4">
-            <div class="card-body">Справки</div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="/myspravki">Посмотреть</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-md-6">
-        <div class="card bg-warning text-white mb-4">
-            <div class="card-body">Заявлении</div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="/myzaev">Посмотреть</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-xl-4 col-md-6">
-        <div class="card bg-success text-white mb-4">
-            <div class="card-body">Success Card</div>
-            <div class="card-footer d-flex align-items-center justify-content-between">
-                <a class="small text-white stretched-link" href="/">Посмотреть</a>
-                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
+
 @endsection
 @section('breadcrumb')
 <i class="fas fa-pen"></i>
@@ -89,7 +61,8 @@
                     @if ($r->is_approved==false)
                    
                     @else
-                    <button type="button" class="btn btn-link">Загрузить</button>
+                    <a type="button" class="btn btn-link" href="/downloadpdf/{{$r->cert_id}}">Download</a>
+                    <a type="button" class="btn btn-link" href="/sendEmail">Send Email</a>
                     @endif   
                 </td>
             </tr>

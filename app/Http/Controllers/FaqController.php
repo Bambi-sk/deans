@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class FaqController extends Controller
 {
+    public function __construct()
+  {
+    $this->middleware('auth');
+  }
+  
     /**
      * Display a listing of the resource.
      *
@@ -15,9 +20,13 @@ class FaqController extends Controller
     public function index()
     {
         //
-        $faqs = Faqs::all();
-
-        return view('faqs.index', compact('faqs'));
+        if(auth()->user()->is_admin == true){
+            $faqs = Faqs::all();
+            return view('faqs.index', compact('faqs'));
+        }
+        else{
+            return view('pages.403');
+        }
     }
 
     /**
@@ -28,7 +37,12 @@ class FaqController extends Controller
     public function create()
     {
         //
-        return view('faqs.create');
+        if(auth()->user()->is_admin == true){
+            return view('faqs.create');
+        }
+        else{
+            return view('pages.403');
+        }
     }
 
     /**
@@ -40,13 +54,17 @@ class FaqController extends Controller
     public function store(Request $request)
     {
         //
-        $faq=new Faqs();
-        $faq->question = $request->question;
-        
-        $faq->answer = $request->answer;
-        $faq->save();
-        return redirect()->route('faq.index')
-            ->with('success', 'Faq created successfully.');
+        if(auth()->user()->is_admin == true){
+            $faq=new Faqs();
+            $faq->question = $request->question;
+            $faq->answer = $request->answer;
+            $faq->save();
+            return redirect()->route('faq.index')
+                ->with('success', 'Faq created successfully.');
+        }
+        else{
+            return view('pages.403');
+        }
 
     }
 
@@ -59,7 +77,12 @@ class FaqController extends Controller
     public function show(Faqs $faq)
     {
         //
-        return view('faqs.show', compact('faq'));
+        if(auth()->user()->is_admin == true){
+            return view('faqs.show', compact('faq'));
+        }
+        else{
+            return view('pages.403');
+        }
     }
 
     /**
@@ -71,7 +94,9 @@ class FaqController extends Controller
     public function edit(Faqs $faq)
     {
         //
-        return view('faqs.edit', compact('faq'));
+        if(auth()->user()->is_admin == true){return view('faqs.edit', compact('faq'));}
+        else{return view('pages.403');}
+        
     }
 
     /**
@@ -84,14 +109,20 @@ class FaqController extends Controller
     public function update(Request $request, Faqs $faq)
     {
         //
-        $request->validate([
-            'question' => 'required',
-            'answer' => 'required'
-        ]);
-        $faq->update($request->all());
+        if(auth()->user()->is_admin == true){
+            $request->validate([
+                'question' => 'required',
+                'answer' => 'required'
+            ]);
+            $faq->update($request->all());
 
-        return redirect()->route('faq.index')
-            ->with('success', 'Faq updated successfully');
+            return redirect()->route('faq.index')
+                ->with('success', 'Faq updated successfully');
+        }
+        else{
+            return view('pages.403');
+        }
+        
     }
 
     /**
@@ -103,9 +134,14 @@ class FaqController extends Controller
     public function destroy(Faqs $faq)
     {
         //
-        $faq->delete();
+        if(auth()->user()->is_admin == true){
+            $faq->delete();
 
-        return redirect()->route('faq.index')
-            ->with('success', 'Faq deleted successfully');
+            return redirect()->route('faq.index')
+                ->with('success', 'Faq deleted successfully');
+        }
+        else{
+                return view('pages.403');
+        }
     }
 }

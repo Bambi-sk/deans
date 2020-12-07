@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html>
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,25 +17,72 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-dropdown')
-
-            <!-- Page Heading -->
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+    <body class="sb-nav-fixed">
+        @include('inc.adminNav')
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <div class="nav">
+                                <div class="sb-sidenav-menu-heading">Core</div>
+                                <a class="nav-link" href="/indexStudent">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                                    Home
+                                    
+                                </a>
+                            
+                                <a class="nav-link" href="/sendspravka">
+                                    <div class="sb-nav-link-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+                                    Send Request to Certification
+                                </a>
+                                <a class="nav-link" href="/faqs">
+                                    <div class="sb-nav-link-icon"><i class="fa fa-question-circle"></i></div>
+                                    FAQs
+                                </a>
+                                <a class="nav-link" href="/student/cert">
+                                    <div class="sb-nav-link-icon"><i class="fas fa-send-backward"></i></div>
+                                    List My Certification
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Deans</div>
+                        
+                    </div>
+                </nav>
+            </div>
+            
+            <div id="layoutSidenav_content">
+                <main>
+                
+                    <div class="container-fluid">
+                        <h1 class="mt-4">@yield('breadcumbText')</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item">@yield('breadcumbText')</li>
+                
+                        </ol>
+                        @yield('card')
+                    </div>
+                    @yield('addButton')
+                    <div class="container-fluid">
+                        @yield('cardBody')
+                    
+                    </div>
+               
+                </main>
+               @include('inc.footer')
+            </div>
         </div>
-
-        @stack('modals')
-
-        @livewireScripts
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/datatables-demo.js"></script>
     </body>
 </html>

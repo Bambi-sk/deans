@@ -24,29 +24,31 @@
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
-                      
-                                
-            
-                            <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="{{ route('faq.index') }}">
+                        <div class="sb-sidenav-menu-heading">Core</div>
+                            <a class="nav-link" href="/indexAdmin">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Справки
+                                Home
                             </a>
 
                             <a class="nav-link" href="/cerfType">
-                                <div class="sb-nav-link-icon"><i class="far fa-pencil-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="icon-certificate"></i></div>
                                  Certification Type
                             </a>
 
                             <a class="nav-link" href="/cerf">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-tablet"></i></div>
                                 Certification
                             </a>
 
                             <a class="nav-link" href="{{ route('faq.index') }}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Вопросы
+                                <div class="sb-nav-link-icon"><i class="fa fa-question-circle" aria-hidden="true"></i></div>
+                                FAQ
                             </a>
+                            <a class="nav-link" href="/listRequest">
+                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                                List Request From Students
+                            </a>
+            
                          
                         </div>
                     </div>

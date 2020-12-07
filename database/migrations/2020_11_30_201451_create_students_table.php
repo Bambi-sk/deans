@@ -23,7 +23,9 @@ class CreateStudentsTable extends Migration
             $table->integer('id_stream')->unsigned();
             $table->integer('id_spec')->unsigned();
             $table->integer('id_type_study')->unsigned();
+            $table->unsignedBigInteger('id_users');
             $table->timestamps();
+            $table->foreign('id_users')->references('id')->on('users');
             $table->foreign('id_nation')->references('id')->on('nationalities')->onDelete('cascade');
             $table->foreign('id_stream')->references('id')->on('streams')->onDelete('cascade');
             $table->foreign('id_type_study')->references('id')->on('type_studies')->onDelete('cascade');
