@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Certifications;
 use App\Models\CerfTypes;
 use App\Models\Students;
-
+use App\Models\Faqs;
 
 use App\Models\Nationalities;
 use App\Models\Specialities;
@@ -21,7 +21,7 @@ class PagesController extends Controller
   }
   
     public function index(){
-        echo
+       
         $id=auth()->user()->id;
         
         $nationality=Nationalities::all();
@@ -48,7 +48,9 @@ class PagesController extends Controller
     }
 
     public function faq(){
-        return view('pages/faq');
+        $faqs = Faqs::all();
+        return view('pages/faq', compact('faqs'));
+        
     }
     // public function formsprav(){
     //     return view('pages/formsprav');

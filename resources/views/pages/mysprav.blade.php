@@ -62,7 +62,7 @@
                    
                     @else
                     <a type="button" class="btn btn-link" href="/downloadpdf/{{$r->cert_id}}">Download</a>
-                    <a type="button" class="btn btn-link" href="/sendEmail">Send Email</a>
+                    <a type="button" class="btn btn-link" href="/sendEmail/{{$r->cert_id}}">Send Email</a>
                     @endif   
                 </td>
             </tr>

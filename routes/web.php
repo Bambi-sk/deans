@@ -28,13 +28,12 @@ use App\Http\Controllers\SessionsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/',[PagesController::class,'index']);
 Route::get('/indexStudent',[PagesController::class,'index']);
 Route::get('/faqs',[PagesController::class,'faq']);
 Route::get('/formspravki',[PagesController::class,'formsprav']);
 Route::get('/formzaev',[PagesController::class,'formzaev']);
 
-Route::get('/login',[PagesController::class,'login']);
 Route::get('/myspravki',[PagesController::class,'mysprav']);
 Route::get('/myzaev',[PagesController::class,'myzaev']);
 
@@ -64,7 +63,7 @@ Route::delete('/cerfd/{id}', [CertificationController::class, 'destroy'] );
 
 Route::get('/student', [StudentController::class, 'index'] );
 Route::get('/downloadpdf/{id}', [RequestCertController::class, 'downloadCert'] );
-Route::get('/sendEmail', [RequestCertController::class, 'sendEmail'] );
+Route::get('/sendEmail/{id}', [RequestCertController::class, 'sendEmail'] );
 Route::get('/student/cert', [RequestCertController::class, 'indexStudent'] );
 Route::get('/requestCert/create/{id}', [RequestCertController::class, 'create'] );
 Route::post('/requestCert', [RequestCertController::class, 'store'] );

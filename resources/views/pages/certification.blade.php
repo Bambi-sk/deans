@@ -85,7 +85,7 @@
     <table>
         <tr>
             <td style="line-height: 1.5;">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Given to  <?php echo $student->firstname ;?> <?php echo $student->lastname ;?> <?php echo $student->birthdate; ?>  that he is a registered student at International Information Technologies University majoring «<?php echo $specStudent->code;?>» – <?php echo $specStudent->name;?>. Language of study: English. Period of study: September 2017 – July 2021. Bachelor of Computer Engineering and  Information Security will receive a diploma, the issue is scheduled for 25.09.2020.
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Given to  <?php echo $student->firstname ;?> <?php echo $student->lastname ;?> <?php echo $student->birthdate; ?>  that he is a registered student at International Information Technologies University majoring «<?php echo $specStudent->code;?>» – <?php echo $specStudent->name;?>. Language of study: English. Period of study: September 2017 – July 2021. Bachelor of <?php echo $specStudent->name;?> will receive a diploma, the issue is scheduled for 25.09.2020.
             </td>
         </tr>
     </table>
@@ -103,7 +103,7 @@
             <td style="width: 5%;">
             </td>
             <td style="text-align: center;width: 90%;">
-                <b>Dean of <?php $dean->name ?></b> ___________________<b>Uatbayev M.M.</b>
+                <b>Dean of <?php echo  $dean->dean_name ?></b> ___________________<b>Uatbayev M.M.</b>
             </td>
             <td style="width: 5%;">
             </td>

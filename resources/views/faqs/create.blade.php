@@ -1,4 +1,5 @@
 @extends('layouts.appAdmin')
+
 @section('breadcumbText')
 Faqs
 @endsection
@@ -39,7 +40,7 @@ Faqs
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Answer:</strong>
-                    <textarea class="form-control" style="height:50px" name="answer"
+                    <textarea  class="form-control"  style="height:50px" name="answer"
                         placeholder="Answer"></textarea>
                 </div>
             </div>
@@ -54,3 +55,4 @@ Faqs
 @endsection
 @section('addButton')
 @endsection
+

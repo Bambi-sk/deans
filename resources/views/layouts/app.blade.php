@@ -41,7 +41,7 @@
                                     FAQs
                                 </a>
                                 <a class="nav-link" href="/student/cert">
-                                    <div class="sb-nav-link-icon"><i class="fas fa-send-backward"></i></div>
+                                    <div class="sb-nav-link-icon"><i class="far fa-address-book"></i></div>
                                     List My Certification
                                 </a>
                             </div>

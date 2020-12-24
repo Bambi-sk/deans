@@ -1,7 +1,7 @@
 
 @extends('layouts.appAdmin')
 @section('breadcumbText')
-Certification type
+Certification
 @endsection
 @section('card')
 
@@ -21,35 +21,32 @@ Certification type
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>:</strong>
-                {{$cerf->uni_logo}}
+                <strong>University Logo:</strong>
+                {{$cerfType->uni_logo}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Period date:</strong>
-                {{$cerfType->period_date }}
+                <strong>University Organization:</strong>
+                {{$cerfType->uni_organization }}
             </div>
             <div class="form-group">
-                <strong>Period date:</strong>
-                {{$cerfType->period_date }}
+                <strong>Dean Name:</strong>
+                {{$cerfType->paragraph }}
             </div>
             <div class="form-group">
-                <strong>Period date:</strong>
-                {{$cerfType->period_date }}
+                <strong>Paragraph:</strong>
+                {{$cerfType->title }}
             </div>
             <div class="form-group">
-                <strong>Period date:</strong>
-                
+                <strong>Main part:</strong>
+                {{$cerfType->main_part }}
             </div>
             <div class="form-group">
-                <strong>Period date:</strong>
-                {{$cerfType->period_date }}
+                <strong>License:</strong>
+                {{$cerfType->license }}
             </div>
-            <div class="form-group">
-                <strong>Period date:</strong>
-                {{$cerfType->period_date }}
-            </div>
+           
 
         </div>
     </div>

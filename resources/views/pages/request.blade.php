@@ -7,12 +7,7 @@
 @endsection
 @section('addButton')
 <div class="container-fluid">   
-    <div class="float-right">
-        <a class="btn btn-danger" href=""><i class="fa fa-times"></i> Отклонить все</a>
-    </div> 
-    <div class="float-right">
-        <a class="btn btn-success" href=""><i class="fa fa-check"></i> Разрешить все</a>
-    </div>
+   
 </div>
 @endsection
 @section('cardBody')
@@ -44,7 +39,7 @@
                     @foreach ($students as $s)
                     @if ($r->student_id==$s->id)
                         @foreach ($stream as $st)
-                            @if ($st->id=$s->id_stream)
+                            @if ($st->id==$s->id_stream)
                                 {{$st->name}}
                             @endif
                         @endforeach
@@ -55,7 +50,7 @@
                 <td>@foreach ($students as $s)
                     @if ($r->student_id==$s->id)
                         @foreach ($stream as $st)
-                            @if ($st->id=$s->id_stream)
+                            @if ($st->id==$s->id_stream)
                                 {{$st->year}}
                             @endif
                         @endforeach

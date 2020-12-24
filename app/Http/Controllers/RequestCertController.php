@@ -11,6 +11,7 @@ use App\Models\TypeStudies;
 use App\Models\Students;
 use App\Models\DeansOffices;
 use App\Models\RequestCerts;
+use App\Models\SuperUsers;
 use Illuminate\Http\Request;
 use Spipu\Html2Pdf\Html2Pdf;
 use Spipu\Html2Pdf\Exception\Html2PdfException;
@@ -108,7 +109,7 @@ class RequestCertController extends Controller
             );
             $html2pdf->setDefaultFont('times');
             $html2pdf->addFont('times');
-            $html2pdf->output('C:/Users/бота/Desktop/web-technologies/cert.pdf', 'F');
+            $html2pdf->output('cert.pdf');;
         } catch (Html2PdfException $e) {
             $html2pdf->clean();
         
@@ -119,15 +120,69 @@ class RequestCertController extends Controller
       
         return view('pages.mysprav',['reqcer'=>$requestCert,'cerf'=>$cerf,'cerftype'=>$cerf_Type,'student'=>$student]);
     }
-    public function sendEmail()
+    public function sendEmail($cert_id)
     {
         $id=auth()->user()->id;
         $student=Students::where('id_users',$id)->first();
         $requestCert=RequestCerts::where('student_id',$student->id)->get();
+        $cerfs=Certifications::find($cert_id);
         $cerf_Type=CerfTypes::all();
-       
+        $deans= DeansOffices::all();
+        $stream=Streams::all();
+        $speciality=Specialities::all();
+        $streamStudent;
+        $dean;
+        foreach ($speciality as $s){ 
+            if ($s->id==$student->id_spec){
+                foreach ($deans as $d){
+                    if ($d->id==$s->deans_office_id){
+                        $dean=$d;
+                        
+                    }
+                }
+            }
+        }
+        echo $dean;
+        
+        foreach($stream as $s){
+            if($s->id==$student->id_stream){
+                $streamStudent=$s;
+            }
+        }
+        $specStudent;
+        foreach($speciality as $s){
+            if($s->id==$student->id_spec){
+                $specStudent=$s;
+            }
+        }
         $cerf=Certifications::all();
-
+        $params=[
+            'student'=>$student,
+            'dean'=>$dean,
+            'streamStudent'=>$streamStudent,
+            'specStudent'=>$specStudent,
+            'cerf'=>$cerfs
+        ];
+        try {
+            
+        
+            $html2pdf = new Html2Pdf('P', 'A4', 'fr');
+            $html2pdf->setTestIsImage(false);
+        
+            $html2pdf->pdf->SetDisplayMode('fullpage');
+            $html2pdf->writeHTML(
+                view('pages/certification')->with($params)
+            );
+            $html2pdf->setDefaultFont('times');
+            $html2pdf->addFont('times');
+            $html2pdf->output('C:/Users/бота/Desktop/web-technologies/cert.pdf', 'F');
+        } catch (Html2PdfException $e) {
+            $html2pdf->clean();
+        
+            $formatter = new ExceptionFormatter($e);
+            echo $formatter->getHtmlMessage();
+        }
+      
         
         $data = array('name'=>"Deans");
         Mail::send('pages.emailText', $data, function($message) {
@@ -162,12 +217,41 @@ class RequestCertController extends Controller
     public function listRequest()
     {
         //
+       $idS=auth()->user()->id;
+        $deans= DeansOffices::all();
+        $stream=Streams::all();
+        $superuser=SuperUsers::all();
+        $speciality=Specialities::all();
+        $streamStudent;
+        $dean;
+        foreach($superuser as $d){
+            if($idS==$d->id_users){
+                $dean=$d->deans_office_id;
+            }
+        }
+        $speciality=Specialities::where('deans_office_id',$dean)->get();
         $cerf = Certifications::all();
         $students=Students::all();
         $requestCert=RequestCerts::all();
         $cerf_Type=CerfTypes::all();
-        $stream=Streams::all();
-        return view('pages.request',['cerf'=>$cerf,'students'=>$students,'requestCert'=>$requestCert,'cerf_Type'=>$cerf_Type,'stream'=>$stream]);
+        $list_student=array();
+        foreach($speciality as $s){
+            foreach($students as $st){
+                if($st->id_spec==$s->id){
+                    array_push($list_student,$st);
+                }
+            }
+        }
+        $list_request=array();
+        foreach($requestCert as $r){
+            foreach($list_student as $s){
+                 if($r->student_id==$s->id){
+                            array_push($list_request,$r);
+                 }
+            }
+            
+        }
+        return view('pages.request',['cerf'=>$cerf,'students'=>$list_student,'requestCert'=>$list_request,'cerf_Type'=>$cerf_Type,'stream'=>$stream]);
     }
 
     /**

@@ -84,7 +84,7 @@ class CertificationController extends Controller
         //
         if (auth()->user()->is_admin == true) {
             $cerf_Type=Certifications::findOrFail($id);
-            return view('cerf.show', ['cerfType'=>$cerf_Type]);
+            return view('certification.show', ['cerfType'=>$cerf_Type]);
         }
         return view('pages.403');
 
